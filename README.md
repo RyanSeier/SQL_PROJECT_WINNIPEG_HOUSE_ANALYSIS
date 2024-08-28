@@ -7,11 +7,13 @@ I want to live in an area that has the bottom 30% of crime rates in Winnipeg
 I want to live in a relatively newer house, built after 1960
 
 Desired property features:
+- Price between 300,000 - 450,000
 - Basement
 - Living area over 1,100 sqft
 - Garage
 - 2+ bedrooms
 - 2+ bathrooms
+- Low crime rate neighbourhood (relative to City of Winnipeg average)
 
 
 Questions:
@@ -67,7 +69,7 @@ The following seven tools were used to query and analyze the data:<br>
 4. **Git, GitHub Desktop, and GitHub:** Used for project sharing, tracking, and future project collaboration efforts.  Chosen due to past experience with these tools, and their current popularity amongst analysts.
 5. **ChatGPT:** Used for quickly creating markdown tables for query results
 
-# The Analysis
+# Data Analysis
 
 
 ### [Which neighbourhoods best suit my price range?](/project_queries/Analysis%20Queries/q1_price_range.sql)
@@ -105,9 +107,14 @@ LIMIT 10;
 | GARDEN CITY        | 1761       |
 
 ### <span style="color:tan">Query Highlights:</span>
-
+1. Top 3 neighbourhoods with the most properties that fit my price range are Windsor Park, Tyndall Park, and The Maples.
+2. The top ranking neighbourhood for affordability has nearly double the number of properties than the 10th ranking neighbourhood
+3. The 10th ranking neighbourhood still has a decent number of properties fitting my price range
+4. While not immediately noticable to those unfamiliar with Winnipeg, quite a few of the top ranking houses are in areas known for higher crime rates
+5. While not immediately noticable to those unfamiliar with Winnipeg, many of the top ranking neighbourhoods are in the north end of the city
 
 ### <span style="color:tan">Result Interpretation:</span>
+The largest number of homes that fit my price range seem to be in the north end, with a couple of neighbourhoods (Windsor Park, Tyndall Park) that I know have higher than average city crime rates.  That said, there's still many properties in the other neighbourhoods, with well over 1000 in Garden City, ranked 10th, which is quite a nice area in my personal experience.  So even though the neighbourhoods with the largest numbers of properties in my price range are in high crime rate areas, when we start applying additional filters to address my other criteria we may be able to get new insights into neighbourhoods were interested in, along with different recommendations.
 
 </details>
 
@@ -157,9 +164,14 @@ LIMIT 10;
 | ROYALWOOD                 | 56         | 1725       |
 
 ### <span style="color:tan">Query Highlights</span>
-
+1. None of the top 10 properties in our ideal price range have appeared in the lowest 10 crime rate neighbourhood list
+2. All of the low crime rate neighbourhoods have a low number of total residential houses located within them
+3. The neighbourhood in this low crime rate list with the most houses, Royalwood, still has lower property numbers than our 10th highest neighbourhood in our price range
 
 ### <span style="color:tan">Result Interpretation:</span>
+Most of the residential property count in each neighbourhood is relatively low, to the point that each neighbourhood's total number of houses is less than the filtered number of houses in each property we found for our ideal price range.  This makes sense, as one would imagine that crime rates in an area are proportionate to the population within that same area.  This is actually why we included a filter criteria where we only obtained results for neighbourhoods that contained at least 500 residential units, which was an arbitrarily determined number for now.  
+
+In future iterations, we may want to instead explore crime states based on the number of properties present within an area as opposed to total crime within a neighbourhood.  This would allow our results to include population levels and not be immediately skewed towards neighbourhoods with low housing levels, thereby producing less biased results.  This could be achieved quite easily with a division-based formula in the WHERE section of our SQL code, such as (num_crimes / num_houses), to get a ratio of the number of crimes that occur per number of properties in each neighbourhood.
 
 </details>
 
@@ -209,9 +221,13 @@ LIMIT 10;
 | WESTON                | 784        | 1786       |
 
 ### <span style="color:tan">Query Highlights:</span>
-
+1. The highest ranking numberhood for crime (West Alexander) has nearly 3 crimes committed per residential property.
+2. Unlike the previous query regarding neighourhoods with the lowest crime rates, crime numbers aren't as strictly tied to population
+3. Spence, despite having the lowest number of total residential properties in any neighbourhood we've seen in any query output so far, is ranked 4th for highest crime - also nearly triple the number of crimes per property.
+4. Aside from Rossmere-A, none of the neighbourhoods in this highest crime ranking list appeared in our number of houses within $300,000 - $450,000 price range list
 
 ### <span style="color:tan">Result Interpretation:</span>
+The results were a bit surprising here in that, given the previous query around low crime neighbourhoods, I expected crime to go up proportionally with the number of residential homes in a neighbourhood.  While this generally still seems true given most of these high crime neighbourhoods have over 1000 properties, whereas few had over 1000 properties in the low crime ranking list, there are some clear outliers.  West Alexander and Spence in particular have some of the lowest residential property counts in their neighbourhood, but are also extraodinarily high in crime.  While it's hard to determine at a glance exactly why that is right now, it is a good indicator that neither West Alexander nor Spence areas I am interested in living in given the conditions.  Additionally, not many neighbourhoods within my price range made it into the high crime list, giving me increased confidence that the areas that match my affordability may match my ideal house attributes.
 
 </details>
 
@@ -246,7 +262,7 @@ LIMIT 10;
 | RICHMOND WEST      | 2089              | 1993           |
 
 ### <span style="color:tan">Query Highlights:</span>
-
+1. All of the neighbourhoods with newer properties built after 1980
 
 ### <span style="color:tan">Result Interpretations:</span>
 

@@ -10,7 +10,7 @@ Focus on houses with all of the below:
 5. Violent crime in particular are in the 30th percentile or lower for the city
 */
 
--- Top 5 optimal neighbourhoods
+-- Top 10 optimal neighbourhoods
 
 -- Count number of houses that have all my desired property features for each neighbourhood
 WITH property_cte AS (
@@ -43,7 +43,7 @@ percentile_crime_cte AS (
         PERCENTILE_CONT(0.3) WITHIN GROUP (ORDER BY total_violent) AS thirty_percentile_violent_crime
     FROM total_crime_cte
 )
--- Find our top 5 optimal neighbourhoods
+-- Find our top 10 optimal neighbourhoods
 SELECT
     "Neighbourhood Area",
     num_houses,

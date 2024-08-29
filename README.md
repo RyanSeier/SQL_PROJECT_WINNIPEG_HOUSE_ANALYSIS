@@ -301,7 +301,7 @@ Also worth mentioning is that we have about 1,000-2,000 properties per neighbour
 
 </details><br>
 
-### [Based on the findings in questions 1-5, what are the top 5 optimal neighbourhoods of the city for me to live in?](/project_queries/Analysis%20Queries/q6_optimal_neighbourhoods.sql)
+### [Based on the findings in questions 1-5, what are the top 10 optimal neighbourhoods of the city for me to live in?](/project_queries/Analysis%20Queries/q6_optimal_neighbourhoods.sql)
 <details>
 <summary>Click to expand/collapse</summary>
 
@@ -338,7 +338,7 @@ percentile_crime_cte AS (
         PERCENTILE_CONT(0.3) WITHIN GROUP (ORDER BY total_violent) AS thirty_percentile_violent_crime
     FROM total_crime_cte
 )
--- Find our top 5 optimal neighbourhoods
+-- Find our top 10 optimal neighbourhoods
 SELECT
     "Neighbourhood Area",
     num_houses,
@@ -350,7 +350,7 @@ LEFT JOIN total_crime_cte tcrm
 WHERE total_crime < (SELECT fifty_percentile_total_crime FROM percentile_crime_cte)
     AND total_violent < (SELECT thirty_percentile_violent_crime FROM percentile_crime_cte)
 ORDER BY num_houses DESC
-LIMIT 5;
+LIMIT 10;
 ```
 ### <span style="color:tan">Query Output:</span>
 | Neighbourhood Area                      | num_houses | total_crime | total_violent |

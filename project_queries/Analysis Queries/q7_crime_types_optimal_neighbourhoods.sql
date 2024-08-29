@@ -16,7 +16,7 @@ As a reminder, q6 query output table is posted below:
 -- Common crime types in top 5 optimal neighbourhoods
 SELECT "Offence", SUM("Count") AS crime_count
 FROM crime_report_cleaned
-WHERE "Neighbourhoods" IN ('ROYALWOOD', 'BRIDGWATER TRAILS', 'BRIDGWATER LAKES', 'FRAIPONT', 'RIDGEWOOD SOUTH')
+WHERE "Neighbourhoods" IN ('ROYALWOOD', 'BRIDGWATER TRAILS', 'BRIDGWATER LAKES', 'FRAIPONT', 'RIDGEWOOD SOUTH', 'BETSWORTH', 'NORMAND PARK', 'ST. VITAL PERIMETER SOUTH', 'LINDEN RIDGE')
 GROUP BY "Offence"
 ORDER BY crime_count DESC
 LIMIT 10;
@@ -24,18 +24,19 @@ LIMIT 10;
 /*
 Query Results:
 
-| Offence                                              | crime_count |
-|------------------------------------------------------|-------------|
-| BREAKING & ENTERING                                  | 57          |
-| FRAUD                                                | 48          |
-| THEFT $5000 OR UNDER (FROM MV OR OTHER)              | 32          |
-| MISCHIEF - PROPERTY DAMAGE                           | 25          |
-| MOTOR VEHICLE THEFT                                  | 20          |
-| THEFT $5000 OR UNDER                                 | 17          |
-| ASSAULT-LEVEL 1                                      | 10          |
-| UTTERING THREATS                                     | 7           |
-| POSSESSION STOLEN GOODS >$5000                       | 3           |
-| ASSAULT WITH WEAPON OR CAUSING BODILY HARM-LEVEL 2   | 2           |
+| Offence                                      | Crime Count |
+|----------------------------------------------|-------------|
+| BREAKING & ENTERING                          | 78          |
+| MISCHIEF - PROPERTY DAMAGE                   | 71          |
+| THEFT $5000 OR UNDER (FROM MV OR OTHER)      | 65          |
+| FRAUD                                        | 65          |
+| MOTOR VEHICLE THEFT                          | 37          |
+| THEFT $5000 OR UNDER                         | 30          |
+| ASSAULT-LEVEL 1                              | 18          |
+| UTTERING THREATS                             | 7           |
+| THEFT OVER $5000                             | 7           |
+| BREACH OF RECOGNIZANCE                       | 5           |
+
 
 Seems like individual assaults are extremely rare in these neighbourhoods, which is a relief for me - I like to feel safe walking around.
 There has been a rise of B&E and car thefts across Canada, so it makes sense those would be high on this list given crimes in general are fairly low.

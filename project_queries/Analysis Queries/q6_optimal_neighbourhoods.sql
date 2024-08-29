@@ -1,6 +1,6 @@
 /*
 Question:
-What are the top 5 optimal areas of the city for me to live in?
+What are the top 10 optimal areas of the city for me to live in?
 
 Focus on houses with all of the below:
 1. Houses with a basement, garage, 1100 sqft living area, and 4+ rooms
@@ -55,18 +55,25 @@ LEFT JOIN total_crime_cte tcrm
 WHERE total_crime < (SELECT fifty_percentile_total_crime FROM percentile_crime_cte)
     AND total_violent < (SELECT thirty_percentile_violent_crime FROM percentile_crime_cte)
 ORDER BY num_houses DESC
-LIMIT 5;
+LIMIT 10;
 
 /*
 Query Output:
 
-| Neighbourhood Area | num_houses | total_crime | total_violent |
-|--------------------|------------|-------------|---------------|
-| ROYALWOOD          | 1413       | 56          | 6             |
-| BRIDGWATER TRAILS  | 1170       | 69          | 8             |
-| BRIDGWATER LAKES   | 1159       | 44          | 5             |
-| FRAIPONT           | 834        | 41          | 6             |
-| RIDGEWOOD SOUTH    | 654        | 32          | 1             |
+Here's the data formatted as a Markdown table:
+
+| Neighbourhood Area                      | num_houses | total_crime | total_violent |
+|----------------------------------------|------------|-------------|---------------|
+| ROYALWOOD                              | 1413       | 56          | 6             |
+| BRIDGWATER TRAILS                      | 1170       | 69          | 8             |
+| BRIDGWATER LAKES                       | 1159       | 44          | 5             |
+| FRAIPONT                               | 834        | 41          | 6             |
+| RIDGEWOOD SOUTH                        | 654        | 32          | 1             |
+| BETSWORTH                              | 455        | 78          | 8             |
+| NORMAND PARK                           | 394        | 38          | 4             |
+| ST. VITAL PERIMETER SOUTH              | 375        | 44          | 5             |
+| SOUTHLAND PARK                         | 344        | 19          | 4             |
+| LINDEN RIDGE                           | 314        | 29          | 0             |
 
 According to this query, the south end of the City best suits me.
 Not bad, considering I like those areas - super cool!

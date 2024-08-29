@@ -28,7 +28,7 @@ Questions:
 
 # Introduction
 
-The purpose of this project is to investigate neighbourhoods and houses in the City of Winnipeg, with the goal of determining which neighbourhoods would best suite my living needs based on the criteria I provide with my ideal house.  The most important factors under consideration are housing costs, the age of the house, desirable property features, and crime rates.  These criteria will be sifted through using data provided by the City of Winnipeg (referenced later) stored on a local PostgreSQL database, with querying code available for review in this repository here on GitHub.
+The primary purpose of this project is to exercise my SQL skills and demonstrates them in a public way as part of my personal portfolio detailing work I've done.  The secondary purpose of this project is to investigate neighbourhoods and houses in the City of Winnipeg, with the goal of determining which neighbourhoods would best suite my living needs based on the criteria I provide with my ideal house.  The most important factors under consideration are housing costs, the age of the house, desirable property features, and crime rates.  These criteria will be sifted through using data provided by the City of Winnipeg (referenced later) stored on a local PostgreSQL database, with querying code available for review in this repository here on GitHub.
 
 
 # Background
@@ -378,18 +378,27 @@ ORDER BY num_houses DESC
 LIMIT 5;
 ```
 ### <span style="color:tan">Query Output:</span>
-| Neighbourhood Area | num_houses | total_crime | total_violent |
-|--------------------|------------|-------------|---------------|
-| ROYALWOOD          | 1413       | 56          | 6             |
-| BRIDGWATER TRAILS  | 1170       | 69          | 8             |
-| BRIDGWATER LAKES   | 1159       | 44          | 5             |
-| FRAIPONT           | 834        | 41          | 6             |
-| RIDGEWOOD SOUTH    | 654        | 32          | 1             |
+| Neighbourhood Area                      | num_houses | total_crime | total_violent |
+|----------------------------------------|------------|-------------|---------------|
+| ROYALWOOD                              | 1413       | 56          | 6             |
+| BRIDGWATER TRAILS                      | 1170       | 69          | 8             |
+| BRIDGWATER LAKES                       | 1159       | 44          | 5             |
+| FRAIPONT                               | 834        | 41          | 6             |
+| RIDGEWOOD SOUTH                        | 654        | 32          | 1             |
+| BETSWORTH                              | 455        | 78          | 8             |
+| NORMAND PARK                           | 394        | 38          | 4             |
+| ST. VITAL PERIMETER SOUTH              | 375        | 44          | 5             |
+| SOUTHLAND PARK                         | 344        | 19          | 4             |
+| LINDEN RIDGE                           | 314        | 29          | 0             |
 
 ### <span style="color:tan">Query Highlights:</span>
-1. 
+1. Neither River Park South nore Richmond West are in my top 10 optimal neighbourhood list
+2. Quite a few of the neighbourhoods here are from our query to find neighbourhoods with lowest crime
+2. Most of these neighbourhoods have less than 1,000 properties associated with them
+3. Crime rates are extremely low for each neighbourhood
 
 ### <span style="color:tan">Result Interpretations:</span>
+Given that River Park South and Richmond West were always popping up in previous queries to fit our desired attributes, it is a bit shocking we don't see them here.  But then again, the same issue we had in an earlier query to find neighbourhoods with lowest rates is also appearing since smaller neighbourhoods generally seems to have less crime.  Because of this bias, I will most likely be revisiting this and the crime-related queries to rank neighbourhoods based on the proportion of number of crimes per property, as opposed to per neighbourhood.  This will let us better gauge relative crime rates and give a better comparison between neighbourhoods crime rates depending on their size.
 
 </details><br>
 
@@ -399,39 +408,46 @@ LIMIT 5;
 
 ### <span style="color:tan">Query Used:</span>
 ```sql
--- Common crime types in top 5 optimal neighbourhoods
+-- Common crime types in top 10 optimal neighbourhoods
 SELECT "Offence", SUM("Count") AS crime_count
 FROM crime_report_cleaned
-WHERE "Neighbourhoods" IN ('ROYALWOOD', 'BRIDGWATER TRAILS', 'BRIDGWATER LAKES', 'FRAIPONT', 'RIDGEWOOD SOUTH')
+WHERE "Neighbourhoods" IN ('ROYALWOOD', 'BRIDGWATER TRAILS', 'BRIDGWATER LAKES', 'FRAIPONT', 'RIDGEWOOD SOUTH', 'BETSWORTH', 'NORMAND PARK', 'ST. VITAL PERIMETER SOUTH', 'LINDEN RIDGE')
 GROUP BY "Offence"
 ORDER BY crime_count DESC
 LIMIT 10;
 ```
 ### <span style="color:tan">Query Output:</span>
-| Offence                                              | crime_count |
-|------------------------------------------------------|-------------|
-| BREAKING & ENTERING                                  | 57          |
-| FRAUD                                                | 48          |
-| THEFT $5000 OR UNDER (FROM MV OR OTHER)              | 32          |
-| MISCHIEF - PROPERTY DAMAGE                           | 25          |
-| MOTOR VEHICLE THEFT                                  | 20          |
-| THEFT $5000 OR UNDER                                 | 17          |
-| ASSAULT-LEVEL 1                                      | 10          |
-| UTTERING THREATS                                     | 7           |
-| POSSESSION STOLEN GOODS >$5000                       | 3           |
-| ASSAULT WITH WEAPON OR CAUSING BODILY HARM-LEVEL 2   | 2           |
+| Offence                                      | Crime Count |
+|----------------------------------------------|-------------|
+| BREAKING & ENTERING                          | 78          |
+| MISCHIEF - PROPERTY DAMAGE                   | 71          |
+| THEFT $5000 OR UNDER (FROM MV OR OTHER)      | 65          |
+| FRAUD                                        | 65          |
+| MOTOR VEHICLE THEFT                          | 37          |
+| THEFT $5000 OR UNDER                         | 30          |
+| ASSAULT-LEVEL 1                              | 18          |
+| UTTERING THREATS                             | 7           |
+| THEFT OVER $5000                             | 7           |
+| BREACH OF RECOGNIZANCE                       | 5           |
 
 ### <span style="color:tan">Query Highlights:</span>
-
+1. The top 2 crimes that occur in our 10 ideal neighbourhoods involve property-related offenses (breaking & entering, property damage)
+2. There are two instances of "THEFT $5000 OR UNDER", with one related to "MV or other"
+3. There is a relatively insignificant level of drug offenses or violent offenses in these neighbourhoods collectively
 
 ### <span style="color:tan">Result Interpretations:</span>
+A quick Google search reveals that MV refers to Motor Vehicles, so theft related to "FROM MV OR OTHER" seems to relate to motor vehicles and other forms of theft.  Because the category of theft under $5,000 relating to MVs also includes the vague notion of other crimes, I'm unsure what the difference is.  Perhaps these are two like columns in this dataset that should be merged, but further investigation would be needed.  Aside from that, it seems the majority of crimes in these neighbourhoods relate to property thefts and motor vehicle thefts.  While these are annual crime rates across 10 neighbourhoods meaning these instances of crime are unlikely, I still believe this is a decent indicator that home protection services, such as an alarm system and garage (which we wanted anyway) would be prudent to further reduce risks of the offenses happening.
 
 </details><br>
 
-# What I learned
+# Personal Project Takeaways & Recommendations for Improvement
+While going through this project I generated a list of ideal neighbourhoods that can help guide my home purchasing decisions in the future.  If nothing else, the neighbourhoods generated can act as a starting point to help me find some initial properties that meet my criteria and potentially draw my interest.  In particular, I'm very interested in learning more about the neighbourhoods Richmond West and River Park South, along with the 10 neighbourhoods listed in the optimal neighbourhood ranking list that considered all of the criteria posted.  The reason I'm considering Richmond West and River Park South, despite not being on my optimal top 10 neighbourhood list, is because those two neighbourhoods specifically appeared in each other query I ran, in a positive light relative to my expectations.  Pairing that with the fact that I believe the crime-related stats are skewed because I searched for the raw number of crimes committed in a neighbourhood, as opposed to relative crime relates to property numbers in a neighbourhood, which has me less confident that the optimal neighbourhoods given are accurate, since we ranked them based on number of properties which may have been artificially reduced thanks to the crime filters.
 
+As for what I would improve on this project in the future, I would re-do the crime related rankings we queries as I believe they are biased due our decision to search up raw numbers instead of relative numbers as mentioned above.  A part of me is tempted to correct this error now, since it is just a simple change to the WHERE statement, but I will refrain from now for two reasons: 1. I believe reflecting on ones work and demonstrating the ability to accept ones flaws is also important in a project, which this clearly demonstrates and 2. I do want to start focusing on projects related to other tools like Power BI and Python.  So, at least for now, I will leave the flaws in how I determined neighbourhood crime numbers, and potentially revisit it later.  I will also leave a note to myself to potentially investigate how many properties exist that meet my desired standards relative to all properties in a neighbourhood or even the entire City of Winnipeg.  Doing so would allow me to better understand how realistic my standards are, and tweaking those standards (like reducing number of rooms in a house) could open avenues to safer neighbourhoods and less expensive options, which could also be appealing.
 
 # Conclusion
-
+WORK IN PROGRESS - As of August 28, 2024
 
 # References
+1. [City of Winnipeg Property Data (AKA Parcel Assessment Dataset)](https://data.winnipeg.ca/Assessment-Taxation-Corporate/Assessment-Parcels/d4mq-wa44/data_preview)
+2. [Winnipeg Police Service Crime Map](https://public.tableau.com/app/profile/winnipeg.police.service/viz/CrimeMaps_16527244424350/Disclaimer)

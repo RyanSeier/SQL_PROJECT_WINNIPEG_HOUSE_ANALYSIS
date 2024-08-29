@@ -229,6 +229,8 @@ LIMIT 10;
 ### <span style="color:tan">Result Interpretation:</span>
 The results were a bit surprising here in that, given the previous query around low crime neighbourhoods, I expected crime to go up proportionally with the number of residential homes in a neighbourhood.  While this generally still seems true given most of these high crime neighbourhoods have over 1000 properties, whereas few had over 1000 properties in the low crime ranking list, there are some clear outliers.  West Alexander and Spence in particular have some of the lowest residential property counts in their neighbourhood, but are also extraodinarily high in crime.  While it's hard to determine at a glance exactly why that is right now, it is a good indicator that neither West Alexander nor Spence areas I am interested in living in given the conditions.  Additionally, not many neighbourhoods within my price range made it into the high crime list, giving me increased confidence that the areas that match my affordability may match my ideal house attributes.
 
+I still think that a better approach to crime rates would be a focus on crime per property in a given neighbourhood, which should be done in a future iteration.
+
 </details>
 
 ### [Which neighbourhoods have newer properties built after 1980?](/project_queries/Analysis%20Queries/q4_newer_houses.sql)
@@ -262,9 +264,13 @@ LIMIT 10;
 | RICHMOND WEST      | 2089              | 1993           |
 
 ### <span style="color:tan">Query Highlights:</span>
-1. All of the neighbourhoods with newer properties built after 1980
+1. Although our filter criteria was for top 10 neighbourhoods with houses built in 1980 or after, all of the neighbourhoods listed have an average year built of 1990 or later
+2. All of the neighbourhoods with newer properties built after 1980 have a lot of properties relative to our previous queries total property counts.
+3. Two neighbourhoods appear in this list that also appeared in our ideal price range (River Park South and Richmond West)
+4. While not readily apparent at this time, I'm personally familiar with some property prices in Linden Woods, White Ridge, Island Lakes, and Sage Creek - all of which are pricier houses.
 
 ### <span style="color:tan">Result Interpretations:</span>
+Quite a lot of houses have been built after 1980, relative to the number of total houses we've seen in previous queries when investigating other criteria.  Quite of a few of these newer areas are associated with higher priced properties and neighbourhoods that I am personally familiar with, such as Linden Woods, Whyte Ridge, Island Lakes, and Sage Creek.  Thankfully #1 on this list is River Park South, and #10 is Richmond West - both of which are neighbourhoods that contain a large number of properties that fall within our price range, as seen by query #1 above.  Neither Richmond West nor River Park South were on either crime query, which can be positive as it falls in neither the top 10 or bottom 10 extremes for crime rates and implies a more moderate amount.  As a result Richamond West and River Park South, so far, look like the most appealing neighbourhoods for me to research when looking for houses at this time.  But we should verify this by exercising a query that tests for all of our desired property attributes.
 
 </details>
 
@@ -307,9 +313,16 @@ LIMIT 10;
 | INKSTER GARDENS    | 950                     |
 
 ### <span style="color:tan">Query Highlights:</span>
-
+1. There are quite a few thousand houses in Winnipeg that have my ideal house features
+2. River Park South contains the most residential properties that fulfill our desired criteria in owning a house
+3. Both River Park South and Richmond West were neighbourhoods that appear both here and positively in other queries.
+4. Island Lakes, Whyte Ridge, Canterbury Park and Dakota Crossing were also in our list of neighbourhoods that contained the most newer homes.
+5. I had previous believed Island Lakes and Whyte Ridge to be outside my price range from personal experience, but we filtered for price and they're in the top 10 neighbourhoods, so there should be some property options in my price range there
 
 ### <span style="color:tan">Result Interpretations:</span>
+As expected, River Park South and Richmond West continue to appear positively in our queries and give strong implications that they'll be top ringer neighbourhoods I should check out on first when looking for a home.  The only thing that potentially bothers me is that we got information on neither of these neighbourhoods when looking into crime rates.  Even if crimes are moderate, I still worry if they're on the higher end or lower end of that moderate spectrum relative to other neighbourhood crime rates - which could affect my purchasing decisions.  I also thought quite highly of Island Lakes and Whyte Ridge, thinking they were outside my price originally, but we filtered for that and they do have quite a few residential houses that fit my ideal property.
+
+Also worth mentioning is that we have about 1,000-2,000 properties per neighbourhood in our ranking list for this query, which seems nice; but we don't actually know the total properties in each neighbourhood for comparison.  We have also yet to look into how many properties are in Winnipeg as a whole to get a better gauge of what % of Winnipeg houses actually meet my criteria.  That said, I don't think it's overly important to investigate that right now since our main questions were which neighbourhoods best contain my desired feature list in a house.  Knowing what percentage of city or neighbourhood properties meet my criteria would only be useful in gauging how realistic my expecations for a property are and give some insight into how likely I am to find a house if I go by those criteria I selected.  That could be interesting, but that is not a focus right now in this project.
 
 </details><br>
 
@@ -374,7 +387,7 @@ LIMIT 5;
 | RIDGEWOOD SOUTH    | 654        | 32          | 1             |
 
 ### <span style="color:tan">Query Highlights:</span>
-
+1. 
 
 ### <span style="color:tan">Result Interpretations:</span>
 
